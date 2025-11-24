@@ -65,6 +65,7 @@ MeshRenderer:
   m_RendererPriority: 0
   m_Materials:
   - {fileID: 2100000, guid: 64dd92788a545a645be10d44f6646590, type: 2}
+  - {fileID: 2100000, guid: ae201f20f9a58d547b6446e49274af02, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -1194,8 +1195,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bee31e186fdc5da4daac8af1b7a04950, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  highlight: {fileID: 2100000, guid: 9b8474a1396a6be47bef7ace3ac2502b, type: 2}
+  targetMaterial: {fileID: 2100000, guid: ae201f20f9a58d547b6446e49274af02, type: 2}
   meshRenderer: {fileID: 3410509747022642841}
+  playerObjbool: 1
 --- !u!1001 &4218172695574425155
 PrefabInstance:
   m_ObjectHideFlags: 0
