@@ -91,6 +91,22 @@ public class Player : NetworkBehaviour
             UIManager.Singleton.LocalPlayer = this;
             kcc.Settings.ForcePredictedLookRotation = true;
         }
+        else
+        {
+           
+        }
+
+        //Spawn VFX
+        Vector3 spawnPosition;
+
+        SFX sfx = SFXManager.Instance.OutSFX("PlayerSpawn");
+
+        spawnPosition = transform.position;
+        GameObject vfxInstance = Instantiate(PlayerVFX.Instance.OutVfx("PlayerSpawn"), spawnPosition, Quaternion.identity);
+
+        source.PlayOneShot(sfx.clip, sfx.volume);
+
+        Destroy(vfxInstance, 2f);
     }
 
     public override void Despawned(NetworkRunner runner, bool hasState)
