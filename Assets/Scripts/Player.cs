@@ -260,6 +260,15 @@ public class Player : NetworkBehaviour
             {
                 ShoveCD = TickTimer.CreateFromSeconds(Runner, shoveCD);
                 other.Shove(lookDirection, shoveStrength);
+
+                if (Runner.IsForward)
+                {
+                    // If we are the Host (StateAuthority), we tell everyone (All) to play the VFX
+                    if (Object.HasStateAuthority)
+                    {
+                        RPC_SpawnVFX(hit.Point, "PlayerSmash");
+                    }
+                }
             }
         }
     }
@@ -284,6 +293,18 @@ public class Player : NetworkBehaviour
                 kcc.Jump(grappleVector * grappleStrength);
             }
         }
+    }
+
+    // RpcSources.StateAuthority = Only the Host is allowed to trigger this
+    // RpcTargets.All = This code will run on The Host AND all Clients
+    [Rpc(RpcSources.StateAuthority, RpcTargets.All)]
+    public void RPC_SpawnVFX(Vector3 hitPoint, string vfxname)
+    {
+        // This runs on everyone's computer individually
+        GameObject vfx = Instantiate(PlayerVFX.Instance.OutVfx(vfxname), hitPoint, Quaternion.identity);
+
+        // Cleanup purely local object
+        Destroy(vfx, 1.5f);
     }
 
     private void Cage()

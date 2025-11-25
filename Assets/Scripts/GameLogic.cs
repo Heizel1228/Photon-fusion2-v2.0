@@ -123,6 +123,8 @@ public class GameLogic : NetworkBehaviour, IPlayerJoined, IPlayerLeft
         {
             Players.Remove(player);
             Runner.Despawn(playerBehaviour.Object);
+
+            Debug.Log("Remove Player");
         }
     }
 }

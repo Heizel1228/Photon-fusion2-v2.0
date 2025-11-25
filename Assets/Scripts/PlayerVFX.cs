@@ -12,7 +12,7 @@ public class VFX
 public class PlayerVFX : MonoBehaviour
 {
     public static PlayerVFX Instance;
-    private Dictionary<string, VFX> vfxDictionary;  // Dictionary to look up SFX by name
+    private Dictionary<string, VFX> vfxDictionary;
     public List<VFX> vfxList;
 
     private void Awake()
