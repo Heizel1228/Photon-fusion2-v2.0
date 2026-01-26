@@ -234,6 +234,8 @@ public class Player : NetworkBehaviour
         {
             if(hitInfo.collider.TryGetComponent(out Block block))
             {
+                RPC_SpawnVFX(block.transform.position, "BlockBreak");
+
                 BreakBlockCD = TickTimer.CreateFromSeconds(Runner, breakBlockCD);
                 block.Disable();
             }
@@ -322,6 +324,7 @@ public class Player : NetworkBehaviour
     private void Jumped()
     {
         source.Play();
+        RPC_SpawnVFX(this.transform.position, "PlayerJump");
     }
 
     private void Shoved()

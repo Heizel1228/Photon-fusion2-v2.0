@@ -2645,6 +2645,8 @@ MonoBehaviour:
     vfx: {fileID: 13301048646092075, guid: 334ccdade87a4194b9f1855c484967dc, type: 3}
   - name: PlayerSmash
     vfx: {fileID: 5286328772216621839, guid: 41b57333fef1c834d8da0f4387d82975, type: 3}
+  - name: PlayerJump
+    vfx: {fileID: 4301057783707249758, guid: 74ccf31d718fbea49a5c201d4b7c5af2, type: 3}
 --- !u!4 &1354874225
 Transform:
   m_ObjectHideFlags: 0
