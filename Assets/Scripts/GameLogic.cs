@@ -58,11 +58,20 @@ public class GameLogic : NetworkBehaviour, IPlayerJoined, IPlayerLeft
         {
             UIManager.Singleton.UpdateLeaderboard(Players.OrderByDescending(p => p.Value.Score).ToArray());
         }
+        else if(State == GameState.Waiting && !Runner.IsResimulation)
+        {
+            UIManager.Singleton.UpdateWaitingReadyboard(Players.ToArray());
+        }
     }
 
     private void GameStateChanged()
     {
         UIManager.Singleton.SetWaitUI(State, Winner);
+
+        if(State == GameState.Playing && !Runner.IsResimulation)
+        {
+            UIManager.Singleton.DisableReadyToggle(Players.ToArray());
+        }
     }
 
     private void PreparePlayers()

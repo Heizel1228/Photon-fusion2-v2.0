@@ -82,6 +82,7 @@ public class UIManager : MonoBehaviour
     {
         if(newState == GameState.Waiting)
         {
+
             if (winner == null)
             {
                 gameStateText.text = "Waiting to Start";
@@ -123,10 +124,46 @@ public class UIManager : MonoBehaviour
         }
     }
 
+    public void UpdateWaitingReadyboard(KeyValuePair<Fusion.PlayerRef, Player>[] players)
+    {
+        for (int i = 0; i < leaderboardItems.Length; i++)
+        {
+            LeaderboardItem item = leaderboardItems[i];
+            if (i < players.Length)
+            {
+                item.nameText.text = players[i].Value.Name;
+                item.heightText.text = "";
+                item.readyToggle.gameObject.SetActive(true);
+                item.readyToggle.isOn = players[i].Value.isReady;
+            }
+            else
+            {
+                item.nameText.text = "";
+                item.heightText.text = "";
+                item.readyToggle.gameObject.SetActive(false);
+            }
+        }
+    }
+
+    public void DisableReadyToggle(KeyValuePair<Fusion.PlayerRef, Player>[] players)
+    {
+        for (int i = 0; i < leaderboardItems.Length; i++)
+        {
+            LeaderboardItem item = leaderboardItems[i];
+            if (i < players.Length)
+            {
+                item.readyToggle.gameObject.SetActive(false);
+                players[i].Value.isReady = false;
+                item.readyToggle.isOn = players[i].Value.isReady;
+            }
+        }
+    }
+
     [Serializable]
     private struct LeaderboardItem
     {
         public TextMeshProUGUI nameText;
         public TextMeshProUGUI heightText;
+        public Toggle readyToggle;
     }
 }

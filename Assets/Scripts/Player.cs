@@ -45,7 +45,7 @@ public class Player : NetworkBehaviour
 
     public double Score => Math.Round(transform.position.y, 1);
 
-    public bool isReady; //Server is the only one who cares about this
+    [Networked] public bool isReady { get; set; } //Networked so all clients can see ready status
     public AbilityMode SelectedAbility { get; private set; }
 
     [Networked] public string Name { get; private set; }
