@@ -39,6 +39,11 @@ public class UIManager : MonoBehaviour
     [SerializeField] private Slider doubleJumpCD;
     [SerializeField] private LeaderboardItem[] leaderboardItems;
 
+    [Header("ChatBox")]
+    public TextMeshProUGUI ChatBoxText;
+    public TMP_InputField ChatInputField;
+    public bool isTyping = false;
+
     public Player LocalPlayer;
 
     private void Awake()
@@ -50,6 +55,8 @@ public class UIManager : MonoBehaviour
         shoveCD.value = 0f;
         grappleCD.value = 0f;
         doubleJumpCD.value = 0f;
+
+        ChatInputField.gameObject.SetActive(false);
 
         SelectAbility(AbilityMode.BreakBlock);
     }
@@ -157,6 +164,25 @@ public class UIManager : MonoBehaviour
                 item.readyToggle.isOn = players[i].Value.isReady;
             }
         }
+    }
+
+    public void ShowChatBox()
+    {
+        isTyping = true;
+        ChatInputField.gameObject.SetActive(true);
+        ChatInputField.Select();
+        ChatInputField.ActivateInputField();
+    }
+
+    public void AddChatLine(string PlayerName, string message)
+    {
+        if (!string.IsNullOrWhiteSpace(message))
+        {
+            ChatBoxText.text += $"{PlayerName} : {message} \n";
+        }
+        ChatInputField.text = "";
+        ChatInputField.gameObject.SetActive(false);
+        isTyping = false;
     }
 
     [Serializable]

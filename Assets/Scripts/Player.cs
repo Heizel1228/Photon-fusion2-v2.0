@@ -142,6 +142,39 @@ public class Player : NetworkBehaviour
         }
     }
 
+
+    private void FixedUpdate()
+    {
+        if (HasInputAuthority)
+        {
+            if (Input.GetKeyDown(KeyCode.C))
+            {
+                UIManager.Singleton.ShowChatBox();
+            }
+
+            if (UIManager.Singleton.isTyping && Input.GetKeyDown(KeyCode.V))
+            {
+                var ui = UIManager.Singleton;
+                string msg = ui.ChatInputField.text;
+
+                if (!string.IsNullOrWhiteSpace(msg))
+                {
+                    RPC_SendText(Name, msg);
+                }
+            }
+        }
+    }
+
+    [Rpc(RpcSources.InputAuthority | RpcSources.StateAuthority, RpcTargets.All)]
+    public void RPC_SendText(string playerName, string message)
+    {
+        // This will run on Host + all Clients
+        if (UIManager.Singleton != null)
+        {
+            UIManager.Singleton.AddChatLine(playerName, message);
+        }
+    }
+
     public override void Render()
     {
         if (kcc.Settings.ForcePredictedLookRotation)
